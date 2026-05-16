@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý chi tiêu - Doney Premium</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <h1>DONEY PREMIUM</h1>
+
+        <div class="tab-menu">
+            <button id="btn-tab-dashboard" class="tab-btn active">📊 Quản Lý & Nhập Liệu</button>
+            <button id="btn-tab-history" class="tab-btn">📜 Dashboard & Lịch Sử</button>
+        </div>
+
+        <div id="tab-content-dashboard" class="tab-content">
+            <div class="dashboard-balance">
+                <p>Ví Tiền Chính</p>
+                <span id="sodu_hientai">0</span> <small>VNĐ</small>
+            </div>
+
+            <div class="tiet-kiem-section">
+                <h3>Danh sách hũ tiết kiệm 🐷 (<span id="tien_tiet_kiem">0</span> VNĐ)</h3>
+                <ul>
+                    <li>Mua nhà <span id = "hu_nha">0</span></li>
+                    <li>Mua oto <span id = "hu_oto">0</span></li>
+                    <li>Mua xe máy <span id = "hu_xe_may">0</span></li>
+                    <li>📱 Mua iPhone <span id="hu_iphone">0</span></li>
+                    <li>🛡️ Quỹ dành cho em Pii <span id="hu_du_phong">0</span></li>
+                    <li>✈️ Đi du lịch <span id="hu_du_lich">0</span></li>
+                </ul>
+            </div>
+
+            <div class="form-section" style="margin-top: 20px;">
+                <h2>Thêm Giao Dịch Mới</h2>
+                
+                <label>Số tiền (VNĐ)</label>
+                <input type="number" id="o_nhaptien" placeholder="Ví dụ: 50000">
+
+                <label>Loại giao dịch</label>
+                <select id="loai-giao-dich">
+                    <option value="chi">Chi tiền (-)</option>
+                    <option value="thu">Thu tiền (+)</option>
+                    <option value="gui-tiet-kiem">Gửi tiết kiệm (+ vào hũ)</option>
+                    <option value="rut-tiet-kiem">Rút từ hũ tiết kiệm (Đập heo)</option>
+                </select>
+
+                <label>Danh mục Thu/Chi (Bỏ qua nếu chọn Tiết kiệm)</label>
+                <select id="danh-muc">
+                    <option value ="Tiền tiêu vặt">Tiền tiêu vặt</option>
+                    <option value="Ăn uống 🍔">Ăn uống 🍔</option>
+                    <option value="Lương thưởng 💰">Lương thưởng 💰</option>
+                    <option value="Di chuyển 🚗">Di chuyển 🚗</option>
+                    <option value="Mua sắm 🛍️">Mua sắm 🛍️</option>
+                    <option value="Học tập 📚">Học tập 📚</option>
+                    <option value="Trả khoản vay">Trả khoản vay</option>
+                </select>
+
+                <label>Mục tiêu Tiết kiệm (Chỉ dùng khi Gửi/Rút tiết kiệm)</label>
+                <select id="muc-tieu-tiet-kiem">
+                    <option value="nha">Mua nhà</option>
+                    <option value="oto">Mua oto</option>
+                    <option value="xe_may">Mua xe máy</option>
+                    <option value="iphone">Mua iPhone 📱</option>
+                    <option value="du_phong">Quỹ dành cho em Pii 🛡️</option>
+                    <option value="du_lich">Đi du lịch ✈️</option>
+                </select>
+
+                <button id="nut_them">XÁC NHẬN GIAO DỊCH</button>
+            </div>
+        </div>
+
+        <div id="tab-content-history" class="tab-content" style="display: none;">
+            <h2>Báo Cáo Thu Chi Tháng Này</h2>
+            <div class="stats-container">
+                <div class="stat-box income">
+                    <p>Tổng Đã Thu</p>
+                    <span id="tong_thu_thang">0</span> <small>VNĐ</small>
+                </div>
+                <div class="stat-box expense">
+                    <p>Tổng Đã Chi</p>
+                    <span id="tong_chi_thang">0</span> <small>VNĐ</small>
+                </div>
+            </div>
+
+            <div class="filter-wrapper">
+                <h2>Lịch Sử Giao Dịch</h2>
+                <select id="bo-loc-giao-dich">
+                    <option value="tat_ca">Tất cả lịch sử</option>
+                    <option value="thu">Chỉ khoản Thu (+)</option>
+                    <option value="chi">Chỉ khoản Chi (-)</option>
+                    <option value="tiet-kiem">Chỉ Tiết kiệm (🐷)</option>
+                </select>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Ngày</th>
+                        <th>Nội dung / Danh mục</th>
+                        <th>Số tiền</th>
+                        <th>Hành động</th>
+                    </tr>
+                    <tbody id="than-bang"></tbody>
+                </table>
+            </div>
+
+            <button id="nut_reset_app">CÀI ĐẶT LẠI ỨNG DỤNG (RESET ALL)</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
