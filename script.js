@@ -1,7 +1,12 @@
 // Kết nối UI cơ bản
+const hienThiMacbook = document.getElementById('hu_macbook');
 const hienThiIphone = document.getElementById('hu_iphone');
 const hienThiDuPhong = document.getElementById('hu_du_phong');
 const hienThiDuLich = document.getElementById('hu_du_lich');
+const hienThiNha = document.getElementById('hu_nha');
+const hienThiOto = document.getElementById('hu_oto');
+const hienThiXeMay = document.getElementById('hu_xe_may');
+const hienThiHocLai = document.getElementById('hu_hoc_lai');
 const mucTieuTietKiem = document.getElementById('muc-tieu-tiet-kiem');
 
 const nutThem = document.getElementById('nut_them');
@@ -26,7 +31,7 @@ let tong_so_du = 0;
 let tong_tiet_kiem = 0;
 let tong_thu_thang = 0;
 let tong_chi_thang = 0;
-let cac_hu_tiet_kiem = { iphone: 0, du_phong: 0, du_lich: 0 };
+let cac_hu_tiet_kiem = { macbook:0, iphone: 0, du_phong: 0, du_lich: 0, oto:0, xe_may:0, nha:0, hoc_lai:0 };
 
 // ---------------------------------------------------
 // 1. HÀM TÍNH TOÁN LẠI TOÀN BỘ DÒNG TIỀN TỪ MẢNG GỐC
@@ -36,7 +41,7 @@ function tinhToanLaiToanBoHeThong() {
     tong_tiet_kiem = 0;
     tong_thu_thang = 0;
     tong_chi_thang = 0;
-    cac_hu_tiet_kiem = { iphone: 0, du_phong: 0, du_lich: 0 };
+    cac_hu_tiet_kiem = { macbook:0, iphone: 0, du_phong: 0, du_lich: 0, oto:0, xe_may:0, nha:0, hoc_lai:0 };
 
     ls_giaodich.forEach(function(gd) {
         if (gd.loai_gd === "thu") {
@@ -52,16 +57,37 @@ function tinhToanLaiToanBoHeThong() {
             tong_tiet_kiem += gd.sotien;
             
             if (gd.muc_tieu_gd === "iphone") cac_hu_tiet_kiem.iphone += gd.sotien;
+
+            else if (gd.muc_tieu_gd === "macbook_moi") cac_hu_tiet_kiem.macbook +=gd.sotien;
             else if (gd.muc_tieu_gd === "du_phong") cac_hu_tiet_kiem.du_phong += gd.sotien;
             else if (gd.muc_tieu_gd === "du_lich") cac_hu_tiet_kiem.du_lich += gd.sotien;
+
+              else if(gd.muc_tieu_gd === "oto") cac_hu_tiet_kiem.oto += gd.sotien;
+
+            else if(gd.muc_tieu_gd === "xe_may") cac_hu_tiet_kiem.xe_may += gd.sotien;
+
+            else if(gd.muc_tieu_gd === "nha") cac_hu_tiet_kiem.nha += gd.sotien;
+
+            else if(gd.muc_tieu_gd === "hoc_lai") cac_hu_tiet_kiem.hoc_lai += gd.sotien;
+
+        
         } 
         else if (gd.loai_gd === "rut-tiet-kiem") {
             tong_so_du += gd.sotien;
             tong_tiet_kiem -= gd.sotien;
             
             if (gd.muc_tieu_gd === "iphone") cac_hu_tiet_kiem.iphone -= gd.sotien;
+            else if(gd.muc_tieu_gd === "macbook_moi") cac_hu_tiet_kiem.macbook -= gd.sotien;
             else if (gd.muc_tieu_gd === "du_phong") cac_hu_tiet_kiem.du_phong -= gd.sotien;
             else if (gd.muc_tieu_gd === "du_lich") cac_hu_tiet_kiem.du_lich -= gd.sotien;
+
+            else if(gd.muc_tieu_gd === "oto") cac_hu_tiet_kiem.oto -= gd.sotien;
+
+            else if(gd.muc_tieu_gd === "xe_may") cac_hu_tiet_kiem.xe_may -= gd.sotien;
+
+            else if(gd.muc_tieu_gd === "nha") cac_hu_tiet_kiem.nha -= gd.sotien;
+
+            else if(gd.muc_tieu_gd === "hoc_lai") cac_hu_tiet_kiem.hoc_lai -= gd.sotien;
         }
     });
 
@@ -70,9 +96,14 @@ function tinhToanLaiToanBoHeThong() {
 
     // Đổ số liệu mới lên giao diện màn hình
     soduHientai.innerText = tong_so_du.toLocaleString('vi-VN');
+    if(hienThiMacbook) hienThiMacbook.innerText = cac_hu_tiet_kiem.macbook.toLocaleString('vi-VN') + " đ";
     if (hienThiIphone) hienThiIphone.innerText = cac_hu_tiet_kiem.iphone.toLocaleString('vi-VN') + " đ";
     if (hienThiDuPhong) hienThiDuPhong.innerText = cac_hu_tiet_kiem.du_phong.toLocaleString('vi-VN') + " đ";
     if (hienThiDuLich) hienThiDuLich.innerText = cac_hu_tiet_kiem.du_lich.toLocaleString('vi-VN') + " đ";
+    if (hienThiNha) hienThiNha.innerText = cac_hu_tiet_kiem.nha.toLocaleString('vi-VN') + " đ";
+    if (hienThiXeMay) hienThiXeMay.innerText = cac_hu_tiet_kiem.xe_may.toLocaleString('vi-VN') + " đ";
+    if (hienThiOto) hienThiOto.innerText = cac_hu_tiet_kiem.oto.toLocaleString('vi-VN') + " đ";
+    if (hienThiHocLai) hienThiHocLai.innerText = cac_hu_tiet_kiem.hoc_lai.toLocaleString('vi-VN') + " đ";
     if (hienThiTietKiem) hienThiTietKiem.innerText = tong_tiet_kiem.toLocaleString('vi-VN');  
     
     if (hienThiTongThu) hienThiTongThu.innerText = tong_thu_thang.toLocaleString('vi-VN');
@@ -183,8 +214,17 @@ nutThem.addEventListener('click', function(){
     let laTietKiem = loai && (loai.includes("tiet") || loai.includes("kiem")) && loai !== "rut-tiet-kiem";
 
     if (mucTieu === "iphone") tenMucTieuHienThi = "Mua iPhone";
+    else if (mucTieu === "macbook_moi") tenMucTieuHienThi = "Mua Macbook mới";
     else if (mucTieu === "du_phong") tenMucTieuHienThi = "Quỹ dành cho em Pii";
     else if (mucTieu === "du_lich") tenMucTieuHienThi = "Đi du lịch";
+
+    else if (mucTieu === "nha") tenMucTieuHienThi = "Quỹ mua nhà";
+
+    else if (mucTieu === "oto") tenMucTieuHienThi = "Quỹ mua Oto";
+
+    else if (mucTieu === "xe_may") tenMucTieuHienThi = "Quỹ mua xe máy mới";
+
+    else if (mucTieu === "hoc_lai") tenMucTieuHienThi = "Quỹ học lại";
 
     // Kiểm tra dòng tiền logic xem có hợp lệ trước khi đẩy dữ liệu đi
     if (laTietKiem) {
