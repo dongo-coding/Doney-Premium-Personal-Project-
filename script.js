@@ -1,4 +1,3 @@
-// Kết nối UI cơ bản
 const hienThiMacbook = document.getElementById('hu_macbook');
 const hienThiIphone = document.getElementById('hu_iphone');
 const hienThiDuPhong = document.getElementById('hu_du_phong');
@@ -6,6 +5,7 @@ const hienThiDuLich = document.getElementById('hu_du_lich');
 const hienThiNha = document.getElementById('hu_nha');
 const hienThiOto = document.getElementById('hu_oto');
 const hienThiXeMay = document.getElementById('hu_xe_may');
+const hienThiThiChungChi = document.getElementById('hu_thi_chungchi');
 const hienThiHocLai = document.getElementById('hu_hoc_lai');
 const mucTieuTietKiem = document.getElementById('muc-tieu-tiet-kiem');
 
@@ -17,31 +17,26 @@ const soduHientai = document.getElementById('sodu_hientai');
 const hienThiTietKiem = document.getElementById('tien_tiet_kiem'); 
 const thanBang = document.getElementById('than-bang');
 
-// Kết nối các phần tử UI nâng cao phục vụ Dashboard
 const hienThiTongThu = document.getElementById('tong_thu_thang');
 const hienThiTongChi = document.getElementById('tong_chi_thang');
 const boLocGiaoDich = document.getElementById('bo-loc-giao-dich');
 const nutReset = document.getElementById('nut_reset_app');
 
-// Đọc lịch sử cũ từ LocalStorage
 let ls_giaodich = JSON.parse(localStorage.getItem('doney_lichsu')) || [];
 
-// Biến tính toán hệ thống toàn cục
 let tong_so_du = 0;
 let tong_tiet_kiem = 0;
 let tong_thu_thang = 0;
 let tong_chi_thang = 0;
-let cac_hu_tiet_kiem = { macbook:0, iphone: 0, du_phong: 0, du_lich: 0, oto:0, xe_may:0, nha:0, hoc_lai:0 };
+let cac_hu_tiet_kiem = { macbook:0, iphone: 0, du_phong: 0, du_lich: 0, oto:0, xe_may:0, nha:0,thi_chungchi:0, hoc_lai:0 };
 
-// ---------------------------------------------------
-// 1. HÀM TÍNH TOÁN LẠI TOÀN BỘ DÒNG TIỀN TỪ MẢNG GỐC
-// ---------------------------------------------------
+
 function tinhToanLaiToanBoHeThong() {
     tong_so_du = 0;
     tong_tiet_kiem = 0;
     tong_thu_thang = 0;
     tong_chi_thang = 0;
-    cac_hu_tiet_kiem = { macbook:0, iphone: 0, du_phong: 0, du_lich: 0, oto:0, xe_may:0, nha:0, hoc_lai:0 };
+    cac_hu_tiet_kiem = { macbook:0, iphone: 0, du_phong: 0, du_lich: 0, oto:0, xe_may:0, nha:0, thi_chungchi:0, hoc_lai:0 };
 
     ls_giaodich.forEach(function(gd) {
         if (gd.loai_gd === "thu") {
@@ -51,7 +46,7 @@ function tinhToanLaiToanBoHeThong() {
             tong_so_du -= gd.sotien;
             tong_chi_thang += gd.sotien;
         } 
-        // Nhận diện linh hoạt hành động Tiết kiệm, loại trừ hành động rút tiền
+
         else if (gd.loai_gd && (gd.loai_gd.includes("tiet") || gd.loai_gd.includes("kiem")) && gd.loai_gd !== "rut-tiet-kiem") {
             tong_so_du -= gd.sotien;
             tong_tiet_kiem += gd.sotien;
@@ -67,6 +62,9 @@ function tinhToanLaiToanBoHeThong() {
             else if(gd.muc_tieu_gd === "xe_may") cac_hu_tiet_kiem.xe_may += gd.sotien;
 
             else if(gd.muc_tieu_gd === "nha") cac_hu_tiet_kiem.nha += gd.sotien;
+
+            else if(gd.muc_tieu_gd === "thi_chungchi") cac_hu_tiet_kiem.thi_chungchi += gd.sotien;
+    
 
             else if(gd.muc_tieu_gd === "hoc_lai") cac_hu_tiet_kiem.hoc_lai += gd.sotien;
 
@@ -87,14 +85,14 @@ function tinhToanLaiToanBoHeThong() {
 
             else if(gd.muc_tieu_gd === "nha") cac_hu_tiet_kiem.nha -= gd.sotien;
 
+            else if(gd.muc_tieu_gd === "thi_chungchi") cac_hu_tiet_kiem.thi_chungchi -= gd.sotien;
+
             else if(gd.muc_tieu_gd === "hoc_lai") cac_hu_tiet_kiem.hoc_lai -= gd.sotien;
         }
     });
 
-    // Đồng bộ tức thời vào LocalStorage của trình duyệt
     localStorage.setItem('doney_lichsu', JSON.stringify(ls_giaodich));
 
-    // Đổ số liệu mới lên giao diện màn hình
     soduHientai.innerText = tong_so_du.toLocaleString('vi-VN');
     if(hienThiMacbook) hienThiMacbook.innerText = cac_hu_tiet_kiem.macbook.toLocaleString('vi-VN') + " đ";
     if (hienThiIphone) hienThiIphone.innerText = cac_hu_tiet_kiem.iphone.toLocaleString('vi-VN') + " đ";
@@ -103,6 +101,7 @@ function tinhToanLaiToanBoHeThong() {
     if (hienThiNha) hienThiNha.innerText = cac_hu_tiet_kiem.nha.toLocaleString('vi-VN') + " đ";
     if (hienThiXeMay) hienThiXeMay.innerText = cac_hu_tiet_kiem.xe_may.toLocaleString('vi-VN') + " đ";
     if (hienThiOto) hienThiOto.innerText = cac_hu_tiet_kiem.oto.toLocaleString('vi-VN') + " đ";
+    if (hienThiThiChungChi) hienThiThiChungChi.innerText = cac_hu_tiet_kiem.thi_chungchi.toLocaleString('vi-VN') + " đ";
     if (hienThiHocLai) hienThiHocLai.innerText = cac_hu_tiet_kiem.hoc_lai.toLocaleString('vi-VN') + " đ";
     if (hienThiTietKiem) hienThiTietKiem.innerText = tong_tiet_kiem.toLocaleString('vi-VN');  
     
@@ -110,15 +109,12 @@ function tinhToanLaiToanBoHeThong() {
     if (hienThiTongChi) hienThiTongChi.innerText = tong_chi_thang.toLocaleString('vi-VN');
 }
 
-// ---------------------------------------------------
-// 2. HÀM VẼ LẠI BẢNG LỊCH SỬ GIAO DỊCH (CÓ BỘ LỌC)
-// ---------------------------------------------------
+
 function veLaiBangLichSu(loaiBoLoc = "tat_ca") {
     if (!thanBang) return;
     thanBang.innerHTML = ""; 
     
     ls_giaodich.forEach(function(giaoDich, index) {
-        // Cú pháp kiểm tra điều kiện Lọc thông minh
         if (loaiBoLoc !== "tat_ca") {
             if (loaiBoLoc === "tiet-kiem" && !giaoDich.loai_gd.includes("tiet") && !giaoDich.loai_gd.includes("kiem") && giaoDich.loai_gd !== "rut-tiet-kiem") return;
             if (loaiBoLoc !== "tiet-kiem" && giaoDich.loai_gd !== loaiBoLoc) return;
@@ -151,14 +147,12 @@ function veLaiBangLichSu(loaiBoLoc = "tat_ca") {
     });
 }
 
-// Bắt sự kiện thay đổi giá trị bộ lọc
 if (boLocGiaoDich) {
     boLocGiaoDich.addEventListener('change', function() {
         veLaiBangLichSu(boLocGiaoDich.value);
     });
 }
 
-// Chức năng dọn sạch bộ nhớ của App
 if (nutReset) {
     nutReset.addEventListener('click', function() {
         if (confirm("CẢNH BÁO: Hành động này xóa toàn bộ dữ liệu dòng tiền vĩnh viễn! Bạn muốn tiếp tục?")) {
@@ -169,9 +163,6 @@ if (nutReset) {
     });
 }
 
-// ---------------------------------------------------
-// 3. LOGIC XÓA VÀ SỬA GIAO DỊCH TRỰC TIẾP
-// ---------------------------------------------------
 window.xoaGiaoDich = function(index) {
     if (confirm("Bạn chắc chắn muốn xóa vĩnh viễn giao dịch này?")) {
         ls_giaodich.splice(index, 1);
@@ -196,9 +187,7 @@ window.suaGiaoDich = function(index) {
     veLaiBangLichSu(boLocGiaoDich ? boLocGiaoDich.value : "tat_ca");
 }
 
-// ---------------------------------------------------
-// 4. LOGIC XỬ LÝ SỰ KIỆN KHI THÊM GIAO DỊCH MỚI
-// ---------------------------------------------------
+
 nutThem.addEventListener('click', function(){
     let sotiendaNhap = Number(oNhaptien.value);
     let danhmuc = DanhMuc.value;
@@ -224,9 +213,12 @@ nutThem.addEventListener('click', function(){
 
     else if (mucTieu === "xe_may") tenMucTieuHienThi = "Quỹ mua xe máy mới";
 
+    else if (mucTieu === "thi_chungchi") tenMucTieuHienThi = "Quỹ thi chứng chỉ";
+
     else if (mucTieu === "hoc_lai") tenMucTieuHienThi = "Quỹ học lại";
 
-    // Kiểm tra dòng tiền logic xem có hợp lệ trước khi đẩy dữ liệu đi
+    
+
     if (laTietKiem) {
         if (tong_so_du < sotiendaNhap) {
             alert("Ví chính không đủ số dư để chuyển vào hũ tiết kiệm!");
@@ -253,16 +245,12 @@ nutThem.addEventListener('click', function(){
     };
     ls_giaodich.push(giao_dich_moi);
 
-    // Tính toán lại hệ thống và cập nhật giao diện
     tinhToanLaiToanBoHeThong();
     veLaiBangLichSu(boLocGiaoDich ? boLocGiaoDich.value : "tat_ca");
 
     oNhaptien.value = "";
 });
 
-// ---------------------------------------------------
-// 5. LOGIC DI CHUYỂN QUA LẠI GIỮA CÁC TAB 
-// ---------------------------------------------------
 const btnDashboard = document.getElementById('btn-tab-dashboard');
 const btnHistory = document.getElementById('btn-tab-history');
 const contentDashboard = document.getElementById('tab-content-dashboard');
@@ -284,6 +272,5 @@ if (btnDashboard && btnHistory) {
     });
 }
 
-// Kích hoạt nạp dữ liệu hệ thống ngay khi khởi tạo ứng dụng
 tinhToanLaiToanBoHeThong();
 veLaiBangLichSu();
