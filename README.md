@@ -1,4 +1,4 @@
-You can try it through https://doney-premium-y97w.vercel.app/
+
 
 Ver 1.0 Tech : HTML + Css + Js (passed)
 
